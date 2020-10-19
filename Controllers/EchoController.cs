@@ -9,13 +9,16 @@ namespace Microsoft.RequestEcho
     [Route("/")]
     public class EchoController : ControllerBase
     {
-
         [HttpGet]
         [Route("subscriptions/{subscriptionId}/providers/Microsoft.Profiler/stampToken")]
         public IActionResult Get(string subscriptionId)
         {
             string echoContent = GetEchoContent();
-            return Ok(subscriptionId + ":" + echoContent);
+            return Ok(new
+            {
+                subscriptionId = subscriptionId,
+                EchoContent = echoContent,
+            });
         }
 
         private string GetEchoContent()
@@ -28,7 +31,25 @@ namespace Microsoft.RequestEcho
         public IActionResult Get(string subscriptionId, string resourceGroupName, string componentName)
         {
             string echoContent = GetEchoContent();
-            return Ok(componentName + ":" + echoContent);
+            return Ok(new
+            {
+                componentName,
+                echoContent
+            });
+        }
+
+        [HttpPost]
+        [Route("subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/microsoft.insights/components/{componentName}/providers/microsoft.profiler/stampToken")]
+        public IActionResult Post(string subscriptionId, string resourceGroupName, string componentName)
+        {
+            string echoContent = GetEchoContent();
+
+            return Ok(new
+            {
+                componentName,
+                Method = "POST",
+                echoContent
+            });
         }
     }
 }
