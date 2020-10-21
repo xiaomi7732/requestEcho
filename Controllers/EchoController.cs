@@ -9,6 +9,16 @@ namespace Microsoft.RequestEcho
     [Route("/")]
     public class EchoController : ControllerBase
     {
+        /// <summary>
+        /// This method is required for the provider to be registered.
+        /// </summary>
+        /// <returns></returns>
+        [Route("subscriptions/{anything}")]
+        public IActionResult ARMPut()
+        {
+            return Ok();
+        }
+
         [HttpGet]
         [Route("subscriptions/{subscriptionId}/providers/Microsoft.Profiler/stampToken")]
         public IActionResult Get(string subscriptionId)
