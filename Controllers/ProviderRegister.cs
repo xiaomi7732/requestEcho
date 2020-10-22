@@ -13,6 +13,7 @@ namespace Microsoft.RequestEcho
         /// Refer to the contrace of subscription updating: https://github.com/Azure/azure-resource-manager-rpc/blob/master/v1.0/subscription-lifecycle-api-reference.md
         /// </summary>
         [Route("subscriptions/{subscriptionId}")]
+        [HttpPut]
         public IActionResult ARMPut()
         {
             return Ok();

@@ -8,18 +8,6 @@ namespace Microsoft.RequestEcho
     [Route("/")]
     public class EchoController : ControllerBase
     {
-        [HttpGet]
-        [Route("subscriptions/{subscriptionId}/providers/Microsoft.Profiler/stampToken")]
-        public IActionResult Get(string subscriptionId)
-        {
-            string echoContent = GetEchoContent();
-            return Ok(new
-            {
-                subscriptionId = subscriptionId,
-                EchoContent = echoContent,
-            });
-        }
-
         private string GetEchoContent()
         {
             return JsonConvert.SerializeObject(Request.Headers);
