@@ -1,6 +1,3 @@
-using System;
-using System.Globalization;
-
 namespace Microsoft.RequestEcho
 {
     public static class ARMRouteTemplates
