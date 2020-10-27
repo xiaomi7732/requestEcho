@@ -1,6 +1,8 @@
 
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Swashbuckle.AspNetCore.Annotations;
+using System.ComponentModel.DataAnnotations;
 
 namespace Microsoft.RequestEcho
 {
@@ -13,6 +15,7 @@ namespace Microsoft.RequestEcho
             return JsonConvert.SerializeObject(Request.Headers);
         }
 
+        [Produces("application/json")]
         [HttpGet]
         [Route("subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/microsoft.insights/components/{componentName}/providers/microsoft.profiler/stampToken")]
         public IActionResult Get(string subscriptionId, string resourceGroupName, string componentName)
@@ -25,6 +28,9 @@ namespace Microsoft.RequestEcho
             });
         }
 
+        [Produces("application/json")]
+        [SwaggerResponse(200, "Read write token is generated successfully.")]
+        [SwaggerResponse(401, "Unauthorized access.")]
         [HttpPost]
         [Route("subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/microsoft.insights/components/{componentName}/providers/microsoft.profiler/stampToken")]
         public IActionResult Post(string subscriptionId, string resourceGroupName, string componentName)
