@@ -7,7 +7,6 @@ using System.ComponentModel.DataAnnotations;
 namespace Microsoft.RequestEcho
 {
     [ApiController]
-    [Route("/")]
     public class EchoController : ControllerBase
     {
         private string GetEchoContent()
@@ -17,7 +16,7 @@ namespace Microsoft.RequestEcho
 
         [Produces("application/json")]
         [HttpGet]
-        [Route("subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/microsoft.insights/components/{componentName}/providers/microsoft.profiler/stampToken")]
+        [Route(ARMRouteTemplates.ProfilerTokenTemplate)]
         public IActionResult Get(string subscriptionId, string resourceGroupName, string componentName)
         {
             string echoContent = GetEchoContent();
@@ -32,7 +31,7 @@ namespace Microsoft.RequestEcho
         [SwaggerResponse(200, "Read write token is generated successfully.")]
         [SwaggerResponse(401, "Unauthorized access.")]
         [HttpPost]
-        [Route("subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/microsoft.insights/components/{componentName}/providers/microsoft.profiler/stampToken")]
+        [Route(ARMRouteTemplates.ProfilerTokenTemplate)]
         public IActionResult Post(string subscriptionId, string resourceGroupName, string componentName)
         {
             string echoContent = GetEchoContent();

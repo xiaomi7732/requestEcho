@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace Microsoft.RequestEcho
 {
     [ApiController]
-    [Route("/")]
     public class ProviderRegisterController : ControllerBase
     {
         /// <summary>
@@ -12,7 +11,7 @@ namespace Microsoft.RequestEcho
         /// Notice, without returning 200, it will bring down the registering of the whole RP.
         /// Refer to the contrace of subscription updating: https://github.com/Azure/azure-resource-manager-rpc/blob/master/v1.0/subscription-lifecycle-api-reference.md
         /// </summary>
-        [Route("subscriptions/{subscriptionId}")]
+        [Route(ARMRouteTemplates.SubscriptionTemplate)]
         [HttpPut]
         public IActionResult ARMPut()
         {
