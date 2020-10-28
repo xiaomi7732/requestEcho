@@ -47,13 +47,19 @@ namespace Microsoft.RequestEcho
         [Route(ARMRouteTemplates.ProfilerTokenTemplate)]
         public IActionResult Post(string subscriptionId, string resourceGroupName, string componentName)
         {
-            string echoContent = GetEchoContent();
+            // TODO: Get AppId somehow
+            var appId = new Guid("9c7614fa-c798-4219-9b92-31a938ac91b9");
+            TokenContract tokenContract = new TokenContract()
+            {
+                AppId = appId, // TODO, get appId from CDS,
+                PermissionLevel = PermissionLevel.ReadWrite,
+            };
+
+            string token = _profilerTokenService.IssueSecurityToken(tokenContract);
 
             return Ok(new
             {
-                componentName,
-                Method = "POST",
-                echoContent
+                token
             });
         }
     }
