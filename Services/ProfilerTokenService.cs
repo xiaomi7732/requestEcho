@@ -7,7 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Microsoft.RequestEcho
 {
-    class ProfilerTokenService
+    class ProfilerTokenService : IProfilerTokenService
     {
         private static readonly TimeSpan TokenExpiry = TimeSpan.FromMinutes(5);
         private readonly ISigningKeyProvider _signingKeyProvider;

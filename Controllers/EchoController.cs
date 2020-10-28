@@ -1,14 +1,21 @@
 
+using System;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Annotations;
-using System.ComponentModel.DataAnnotations;
 
 namespace Microsoft.RequestEcho
 {
     [ApiController]
     public class EchoController : ControllerBase
     {
+        private readonly IProfilerTokenService _profilerTokenService;
+
+        public EchoController(IProfilerTokenService profilerTokenService)
+        {
+            _profilerTokenService = profilerTokenService;
+        }
+
         private string GetEchoContent()
         {
             return JsonConvert.SerializeObject(Request.Headers);
@@ -19,11 +26,17 @@ namespace Microsoft.RequestEcho
         [Route(ARMRouteTemplates.ProfilerTokenTemplate)]
         public IActionResult Get(string subscriptionId, string resourceGroupName, string componentName)
         {
-            string echoContent = GetEchoContent();
+            // TODO: Get AppId somehow
+            var appId = new Guid("9c7614fa-c798-4219-9b92-31a938ac91b9");
+            TokenContract tokenContract = new TokenContract()
+            {
+                AppId = appId, // TODO, get appId from CDS,
+                PermissionLevel = PermissionLevel.ReadOnly,
+            };
+            string token = _profilerTokenService.IssueSecurityToken(tokenContract);
             return Ok(new
             {
-                componentName,
-                echoContent
+                token
             });
         }
 
