@@ -16,7 +16,6 @@ namespace Microsoft.RequestEcho
         public ProfilerTokenService(ISigningKeyProvider signingKeyProvider)
         {
             _signingKeyProvider = signingKeyProvider ?? throw new ArgumentNullException(nameof(signingKeyProvider));
-
         }
 
         public string IssueSecurityToken(TokenContract basedOn)
