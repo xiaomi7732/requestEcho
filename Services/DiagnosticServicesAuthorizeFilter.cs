@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Headers;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using static Microsoft.RequestEcho.ErrorResponseFactory;
 
 namespace Microsoft.RequestEcho
@@ -30,7 +31,7 @@ namespace Microsoft.RequestEcho
             RequestHeaders headers = context.HttpContext.Request.GetTypedHeaders();
             AuthenticationHeaderValue authentication = headers.Get<AuthenticationHeaderValue>("DiagnosticServicesAuthorization");
 
-            if(authentication==null)
+            if (authentication == null)
             {
                 context.Result = Unauthorized("Authentication is required.");
                 return;
@@ -59,6 +60,13 @@ namespace Microsoft.RequestEcho
                     context.Result = Forbidden($"Insufficient permission level: {tokenContract.PermissionLevel}");
                     return;
                 }
+
+                context.HttpContext.Features.Set<ProfilerContext>(new ProfilerContext() { AppId = tokenContract.AppId });
+            }
+            catch (SecurityTokenExpiredException ex)
+            {
+                _logger.LogError(ex, "Token expired.");
+                context.Result = Forbidden(ex.Message);
             }
             catch (Exception ex)
             {
