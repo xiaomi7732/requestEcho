@@ -32,6 +32,7 @@ namespace RequestEcho
             services.AddScoped<IProfilerTokenService, ProfilerTokenService>();
             services.AddSingleton<HttpClient>();
             services.AddSingleton<IARMCertCache, ARMCertCache>();
+            services.AddScoped<IARMClientCertificateValidator, ARMClientCertificateValidator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

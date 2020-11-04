@@ -1,4 +1,3 @@
-
 using System;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -10,10 +9,14 @@ namespace Microsoft.RequestEcho
     public class EchoController : ControllerBase
     {
         private readonly IProfilerTokenService _profilerTokenService;
+        private readonly IARMClientCertificateValidator _armClientCertificateValidator;
 
-        public EchoController(IProfilerTokenService profilerTokenService)
+        public EchoController(
+            IProfilerTokenService profilerTokenService,
+            IARMClientCertificateValidator armClientCertificateValidator)
         {
-            _profilerTokenService = profilerTokenService;
+            _profilerTokenService = profilerTokenService ?? throw new ArgumentNullException(nameof(profilerTokenService));
+            _armClientCertificateValidator = armClientCertificateValidator ?? throw new ArgumentNullException(nameof(armClientCertificateValidator));
         }
 
         private string GetEchoContent()
@@ -24,6 +27,7 @@ namespace Microsoft.RequestEcho
         [Produces("application/json")]
         [HttpGet]
         [Route(ARMRouteTemplates.ProfilerTokenTemplate)]
+        [ARMClientAuthorize]
         public IActionResult Get(string subscriptionId, string resourceGroupName, string componentName)
         {
             // TODO: Get AppId somehow
@@ -45,6 +49,7 @@ namespace Microsoft.RequestEcho
         [SwaggerResponse(401, "Unauthorized access.")]
         [HttpPost]
         [Route(ARMRouteTemplates.ProfilerTokenTemplate)]
+        [ARMClientAuthorize]
         public IActionResult Post(string subscriptionId, string resourceGroupName, string componentName)
         {
             // TODO: Get AppId somehow
