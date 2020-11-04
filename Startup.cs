@@ -1,3 +1,4 @@
+using System.Net.Http;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -25,8 +26,12 @@ namespace RequestEcho
                 c.EnableAnnotations();
             });
 
+            services.Configure<ARMAuthOptions>(Configuration.GetSection(ARMAuthOptions.ARMAuth));
+
             services.AddSingleton<ISigningKeyProvider, SigningKeyProvider>();
             services.AddScoped<IProfilerTokenService, ProfilerTokenService>();
+            services.AddSingleton<HttpClient>();
+            services.AddSingleton<IARMCertCache, ARMCertCache>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,6 +50,9 @@ namespace RequestEcho
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            // So that the certificate will be invoked at the beginning of the service.
+            _ = app.ApplicationServices.GetRequiredService<IARMCertCache>().ValidThumbprints;
 
             app.UseHttpsRedirection();
 
