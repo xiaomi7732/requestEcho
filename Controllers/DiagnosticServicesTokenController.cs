@@ -25,7 +25,7 @@ namespace Microsoft.RequestEcho
         }
 
         [Produces("application/json")]
-        [HttpGet]
+        [HttpPost]
         [Route(ARMRouteTemplates.DiagnosticServiceReadOnlyTokenTemplate)]
         [ARMClientAuthorize]
         public IActionResult Get(string subscriptionId, string resourceGroupName, string componentName)
