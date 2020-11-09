@@ -3,6 +3,8 @@ namespace Microsoft.RequestEcho
     public static class ARMRouteTemplates
     {
         private const string ProfilerTokenResourceType = "stampToken/";
+        private const string DiagnosticServicesReadOnlyToken = "generateDiagnosticServiceReadOnlyToken/";
+        private const string DiagnosticSErvicesReadWriteToken = "generateDiagnosticServiceReadWriteToken/";
         private const string Providers = "providers/";
         private const string Subscriptions = "subscriptions/";
         private const string ResourceGroups = "resourceGroups/";
@@ -22,14 +24,23 @@ namespace Microsoft.RequestEcho
         /// </summary>
         /// <value></value>
         public const string SubscriptionTemplate = Subscriptions + "{subscriptionId}/";
-        
+
         /// <summary>
-        /// Gets the route template for profiler token resource.
+        /// Gets the route template for readonly diagnostic services token resource.
         /// </summary>
-        public const string ProfilerTokenTemplate =
-                SubscriptionTemplate + 
-                ResourceGroupTemplate + 
-                MicrosoftInsightsProviderTemplate + AppInsightsComponentTemplate + 
-                MicrosoftProfilerProviderTemplate + ProfilerTokenResourceType;
+        public const string DiagnosticServiceReadOnlyTokenTemplate =
+                SubscriptionTemplate +
+                ResourceGroupTemplate +
+                MicrosoftInsightsProviderTemplate + AppInsightsComponentTemplate +
+                MicrosoftProfilerProviderTemplate + DiagnosticServicesReadOnlyToken;
+
+        /// <summary>
+        /// Gets the route template for readwrite diagnostic services token resource.
+        /// </summary>
+        public const string DiagnosticServiceReadWriteTokenTemplate =
+                SubscriptionTemplate +
+                ResourceGroupTemplate +
+                MicrosoftInsightsProviderTemplate + AppInsightsComponentTemplate +
+                MicrosoftProfilerProviderTemplate + DiagnosticSErvicesReadWriteToken;
     }
 }

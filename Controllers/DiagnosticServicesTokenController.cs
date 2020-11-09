@@ -26,7 +26,7 @@ namespace Microsoft.RequestEcho
 
         [Produces("application/json")]
         [HttpGet]
-        [Route(ARMRouteTemplates.ProfilerTokenTemplate)]
+        [Route(ARMRouteTemplates.DiagnosticServiceReadOnlyTokenTemplate)]
         [ARMClientAuthorize]
         public IActionResult Get(string subscriptionId, string resourceGroupName, string componentName)
         {
@@ -48,7 +48,7 @@ namespace Microsoft.RequestEcho
         [SwaggerResponse(200, "Read write token is generated successfully.")]
         [SwaggerResponse(401, "Unauthorized access.")]
         [HttpPost]
-        [Route(ARMRouteTemplates.ProfilerTokenTemplate)]
+        [Route(ARMRouteTemplates.DiagnosticServiceReadWriteTokenTemplate)]
         [ARMClientAuthorize]
         public IActionResult Post(string subscriptionId, string resourceGroupName, string componentName)
         {
