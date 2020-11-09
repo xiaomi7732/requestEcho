@@ -22,14 +22,6 @@ namespace Microsoft.RequestEcho
             _armCertCache = aRMCertCache ?? throw new ArgumentNullException(nameof(aRMCertCache));
         }
 
-        [Route("test")]
-        [HttpGet]
-        public IActionResult RunTest()
-        {
-            var certs = _armCertCache.ValidThumbprints;
-            return Ok(certs.ToList());
-        }
-
 
         [Route("traceAnalyzeResults")]
         [HttpGet]

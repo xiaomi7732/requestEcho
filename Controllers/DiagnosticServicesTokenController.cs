@@ -6,12 +6,12 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace Microsoft.RequestEcho
 {
     [ApiController]
-    public class EchoController : ControllerBase
+    public class DiagnosticServicesTokenController : ControllerBase
     {
         private readonly IProfilerTokenService _profilerTokenService;
         private readonly IARMClientCertificateValidator _armClientCertificateValidator;
 
-        public EchoController(
+        public DiagnosticServicesTokenController(
             IProfilerTokenService profilerTokenService,
             IARMClientCertificateValidator armClientCertificateValidator)
         {
