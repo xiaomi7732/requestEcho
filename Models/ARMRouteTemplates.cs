@@ -2,7 +2,6 @@ namespace Microsoft.RequestEcho
 {
     public static class ARMRouteTemplates
     {
-        private const string ProfilerTokenResourceType = "stampToken/";
         private const string DiagnosticServicesReadOnlyToken = "generateDiagnosticServiceReadOnlyToken/";
         private const string DiagnosticSErvicesReadWriteToken = "generateDiagnosticServiceReadWriteToken/";
         private const string Providers = "providers/";
@@ -10,14 +9,12 @@ namespace Microsoft.RequestEcho
         private const string ResourceGroups = "resourceGroups/";
         private const string Components = "components/";
         private const string InsightsProviderName = "Microsoft.Insights/";
-        private const string ProfilerProviderName = "Microsoft.Profiler/";
 
         private const string ResourceGroupTemplate = ResourceGroups + "{resourceGroupName}/";
 
         private const string AppInsightsComponentTemplate = Components + "{componentName}/";
 
         private const string MicrosoftInsightsProviderTemplate = Providers + InsightsProviderName;
-        private const string MicrosoftProfilerProviderTemplate = Providers + ProfilerProviderName;
 
         /// <summary>
         /// Gets the route template for resource provider registering.
@@ -31,8 +28,7 @@ namespace Microsoft.RequestEcho
         public const string DiagnosticServiceReadOnlyTokenTemplate =
                 SubscriptionTemplate +
                 ResourceGroupTemplate +
-                MicrosoftInsightsProviderTemplate + AppInsightsComponentTemplate +
-                MicrosoftProfilerProviderTemplate + DiagnosticServicesReadOnlyToken;
+                MicrosoftInsightsProviderTemplate + AppInsightsComponentTemplate + DiagnosticServicesReadOnlyToken;
 
         /// <summary>
         /// Gets the route template for readwrite diagnostic services token resource.
@@ -40,7 +36,6 @@ namespace Microsoft.RequestEcho
         public const string DiagnosticServiceReadWriteTokenTemplate =
                 SubscriptionTemplate +
                 ResourceGroupTemplate +
-                MicrosoftInsightsProviderTemplate + AppInsightsComponentTemplate +
-                MicrosoftProfilerProviderTemplate + DiagnosticSErvicesReadWriteToken;
+                MicrosoftInsightsProviderTemplate + AppInsightsComponentTemplate + DiagnosticSErvicesReadWriteToken;
     }
 }
